@@ -11,7 +11,7 @@
         <script>
             function getAPI() {
                 request = new XMLHttpRequest();
-                request.open("GET", "https://www.dnd5eapi.co/api/traits/strong", true);
+                request.open("GET", "https://www.dnd5eapi.co/api/traits/brave", true);
                 request.onreadystatechange = function () {
                     alert("readyState = " + request.readyState + ". status = " + request.status);
                     if (request.readyState == 4 && request.status == 200) {
