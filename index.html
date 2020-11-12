@@ -11,36 +11,35 @@
         <script>
             function getAPI() {
                 request = new XMLHttpRequest();
-                request.open("GET", "https://www.dnd5eapi.co/api/traits/brave", true);
+                request.open("GET", "https://www.dnd5eapi.co/api/spells/acid-arrow", true);
                 request.onreadystatechange = function () {
-                    alert("readyState = " + request.readyState + ". status = " + request.status);
+                    //alert("readyState = " + request.readyState + ". status = " + request.status);
                     if (request.readyState == 4 && request.status == 200) {
                         result = request.responseText;
-                        var monsters = JSON.parse(result);
-                        showMonsters(monsters.races);
+                        var spell = JSON.parse(result);
+                        showSpell(spell);
                     }
                 }
                 request.send();
             }
 
-            function showMonsters(races) {
-                alert("showing monsters");
-                for (let index = 0; index < races.length; index++) {
-                    zoo = document.createElement("div");
-                    zoo.innerHTML = "Race: " + races[index].name + "<br>";
-                    document.getElementById("displayData").appendChild(zoo);
-                }
+            function showSpell(spell) {
+                //alert("showing monsters");
+                spellBook = document.createElement("div");
+                spellBook.innerHTML = "Spell: " + spell.name + "<br>"
+                                      + "Description: " + spell.desc;
+                document.getElementById("displayData").appendChild(spellBook);
             }
         </script>
     </head>
     <body onload="getAPI()">
         <div id="answers">
-            <p>API: The GitHub Jobs API, which allows one to search and view jobs at GitHub.</p>
+            <p>API: The Dungeons and Dragons API, which allows search and filter of D&D spells, races, traits, etc.</p>
             <p>URL: 
-                <a href="https://jobs.github.com/api">https://jobs.github.com/api</a>
+                <a href="https://www.dnd5eapi.co/api">https://www.dnd5eapi.co/api/</a>
             </p>
-            <p>In the API request, I specified description=backend, full_time=true, and location=us to look for fulltime jobs in the US that had "backend" as a key word in the description or tags.</p>
-            <p>This API would be helpful, obviously, for a job site that had to display jobs at GitHub, and also for an AJAX/JSON-savvy programmer looking for a job who wants to filter the github jobs more specifically than most job sites permit.</p>
+            <p>In the API request, I specified the category "spells" and the spell "acid-arrow" to access a specific spell by name.</p>
+            <p>This API would be helpful both for creating your own D&D - based computer game, as well as a character/campaign tracker program.</p>
         </div>
         <div id="displayData"></div>
     </body>
