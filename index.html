@@ -1,0 +1,50 @@
+<!-- Comp 20 Fall 2020
+    HW 9 API Fun
+    Eliza Encherman
+    -->
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <title>API Fun</title>
+        <script>
+            function getAPI() {
+                request = new XMLHttpRequest();
+                request.open("GET", "https://jobs.github.com/positions.json?description=backend&full_time=true&location=us", true);
+                request.onreadystatechange = function () {
+                    alert("readyState = " + request.readyState + ". status = " + request.status);
+                    if (request.readyState == 4 && request.status == 200) {
+                        result = request.responseText;
+                        var jobs = JSON.parse(result);
+                        showJobs(jobs);
+                    }
+                }
+                request.send();
+            }
+
+            function showJobs(jobs) {
+                alert("showing jobs");
+                for (let index = 0; index < jobs.length; index++) {
+                    jobBox = document.createElement("div");
+                    jobBox.innerHTML = "Position: " + jobs[index].title + 
+                                       "<br>Company: " + jobs[index].company +
+                                    "<br>Location: " + jobs[index].location +
+                                    "<br> Description: " + jobs[index].description;
+                    document.getElementById("displayData").appendChild(jobBox);
+                }
+            }
+        </script>
+    </head>
+    <body onload="getAPI()">
+        <div id="answers">
+            <p>API: The GitHub Jobs API, which allows one to search and view jobs at GitHub.</p>
+            <p>URL: 
+                <a href="https://jobs.github.com/api">https://jobs.github.com/api</a>
+            </p>
+            <p>In the API request, I specified description=backend, full_time=true, and location=us to look for fulltime jobs in the US that had "backend" as a key word in the description or tags.</p>
+            <p>This API would be helpful, obviously, for a job site that had to display jobs at GitHub, and also for an AJAX/JSON-savvy programmer looking for a job who wants to filter the github jobs more specifically than most job sites permit.</p>
+        </div>
+        <div id="displayData"></div>
+    </body>
+    </html>
